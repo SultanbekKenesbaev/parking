@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель</title>
+</head>
+<body>
+    <h1>Админ-панель</h1>
+    <p>Всего машин: {{ count }}</p>
+    <p>Общая сумма: {{ total_sum }} сум</p>
+    <p> <a href="/chart">График</a></p>
+
+    <form method="get" action="{{ url_for('dashboard') }}">
+        <input type="text" name="plate" placeholder="Номер авто" value="{{ plate_filter or '' }}">
+        <input type="date" name="date" value="{{ date_filter or '' }}">
+        <button type="submit">Поиск</button>
+        <a href="{{ url_for('dashboard') }}">Сброс</a>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Номер</th>
+                <th>Фото (въезд)</th>
+                <th>Фото номера</th>
+                <th>Время въезда</th>
+                <th>Время выезда</th>
+                <th>Сумма</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry[0] }}</td>
+                <td>{{ entry[1] }}</td>
+                <td><img src="{{ url_for('serve_plate_image', filename=entry[3]|replace('plates/', '')) }}" width="100"></td>
+                <td><img src="{{ url_for('serve_plate_image', filename=entry[4]|replace('plates/', '')) }}" width="100"></td>
+                <td>{{ entry[2] }}</td>
+                <td>{{ entry[5] or '---' }}</td>
+                <td>
+                    {% if entry[5] %}
+                        {{ entry[6] }} сум |
+                        <a href="{{ url_for('generate_receipt', entry_id=entry[0]) }}">PDF</a>
+                    {% else %}
+                        ---
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

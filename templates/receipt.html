@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Чек</title>
+    <style>
+        body { font-family: Arial; font-size: 14px; }
+        h2 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>Парковочный чек</h2>
+    <p>Номер: {{ plate }}</p>
+    <p>Время въезда: {{ entry_time }}</p>
+    <p>Время выезда: {{ exit_time }}</p>
+    <p>Общее время: {{ total_time }}</p>
+    <p>Сумма к оплате: {{ total_fee }} сум</p>
+</body>
+</html>

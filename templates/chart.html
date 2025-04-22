@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>График въездов/выездов</title>
+</head>
+<body>
+    <h1>График въездов/выездов</h1>
+    <a href="{{ url_for('dashboard') }}">← Назад</a>
+    <img src="data:image/png;base64,{{ chart }}" alt="Chart">
+</body>
+</html>
