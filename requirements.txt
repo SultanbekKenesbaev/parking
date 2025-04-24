@@ -1,0 +1,9 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+Werkzeug
+EasyOCR
+opencv-python
+reportlab
+gunicorn
+matplotlib
