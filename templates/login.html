@@ -1,16 +1,121 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Вход</title>
-</head>
-<body>
-    <h2>Вход</h2>
-    <form action="/login" method="post">
-        <input type="text" name="username" placeholder="Имя пользователя" required><br><br>
-        <input type="password" name="password" placeholder="Пароль" required><br><br>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .auth-container {
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-size: 1.8em;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      input,
+      select {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1em;
+        width: 100%;
+        transition: border-color 0.3s;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+
+      button {
+        padding: 12px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      p {
+        margin-top: 20px;
+        color: #555;
+      }
+
+      a {
+        color: #3498db;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      a:hover {
+        color: #2980b9;
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
+        .auth-container {
+          padding: 30px 20px;
+          margin: 20px;
+        }
+
+        h2 {
+          font-size: 1.5em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-container">
+      <h2>Вход</h2>
+      <form action="/login" method="post">
+        <input
+          type="text"
+          name="username"
+          placeholder="Имя пользователя"
+          required
+        />
+        <input type="password" name="password" placeholder="Пароль" required />
         <button type="submit">Войти</button>
-    </form>
-    <p>Нет аккаунта? <a href="/register">Регистрация</a></p>
-</body>
+      </form>
+      <p>Нет аккаунта? <a href="/register">Регистрация</a></p>
+    </div>
+  </body>
 </html>
