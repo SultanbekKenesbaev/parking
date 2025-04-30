@@ -1,64 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Оператор-панель</title>
-    <meta charset="UTF-8">
-    <title>Камера Онлайн</title>
     <style>
-        body { text-align: center; margin-top: 50px; }
-        img { border: 2px solid #333; border-radius: 10px; }
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+
+      h1,
+      h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        margin-top: 30px;
+        font-size: 1.5em;
+      }
+
+      .stats-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 15px;
+        width: 60%;
+        margin: 0 auto;
+      }
+
+      .stats-container p {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 0;
+        min-width: 200px;
+        text-align: center;
+        font-size: 1.1em;
+      }
+
+      .video-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        text-align: center;
+        max-width: 800px;
+      }
+
+      .video-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+
+      .filter-form {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin: 0 auto 30px;
+      }
+
+      .filter-form input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .filter-form button {
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px;
+      }
+
+      .filter-form button:hover {
+        background-color: #2980b9;
+      }
+
+      .filter-form a {
+        padding: 10px 20px;
+        background-color: #e74c3c;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        text-align: center;
+      }
+
+      .filter-form a:hover {
+        background-color: #c0392b;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #3498db;
+        color: white;
+        position: sticky;
+        top: 0;
+      }
+
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      a {
+        color: #3498db;
+        text-decoration: none;
+      }
+
+      .pdf-link {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 3px 8px;
+        background-color: #2ecc71;
+        color: white;
+        border-radius: 4px;
+        font-size: 0.8em;
+      }
+
+      .pdf-link:hover {
+        background-color: #27ae60;
+        text-decoration: none;
+      }
+
+      @media (max-width: 900px) {
+        .stats-container {
+          width: 100%;
+        }
+        body{
+            padding: 10px;
+        }
+        .video-container img {
+          width: 100%;
+        }
+
+        .filter-form {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .filter-form input,
+        .filter-form button,
+        .filter-form a {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        table {
+          display: block;
+          overflow-x: auto;
+        }
+
+        th,
+        td {
+          padding: 8px 10px;
+          font-size: 0.9em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .stats-container p {
+          width: 100%;
+        }
+
+        th,
+        td {
+          padding: 6px 8px;
+          font-size: 0.8em;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Оператор-панель</h1>
-    <p>Всего машин: {{ count }}</p>
-    <p>Общая сумма: {{ total_sum }} сум</p>
-    <h2>Камера</h2>
-    <img src="{{ url_for('video_feed') }}" width="800" />
 
+    <div class="stats-container">
+      <p>Всего машин: {{ count }}</p>
+      <p>Общая сумма: {{ total_sum }} сум</p>
+    </div>
 
+    <div class="video-container">
+      <h2>Камера</h2>
+      <img src="{{ url_for('video_feed') }}" />
+    </div>
 
-    <form method="get" action="{{ url_for('dashboard') }}">
-        <input type="text" name="plate" placeholder="Номер авто" value="{{ plate_filter or '' }}">
-        <input type="date" name="date" value="{{ date_filter or '' }}">
-        <button type="submit">Поиск</button>
-        <a href="{{ url_for('dashboard') }}">Сброс</a>
+    <form method="get" action="{{ url_for('dashboard') }}" class="filter-form">
+      <input
+        type="text"
+        name="plate"
+        placeholder="Номер авто"
+        value="{{ plate_filter or '' }}"
+      />
+      <input type="date" name="date" value="{{ date_filter or '' }}" />
+      <button type="submit">Поиск</button>
+      <a href="{{ url_for('dashboard') }}">Сброс</a>
     </form>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Номер</th>
-                <th>Фото (въезд)</th>
-                <th>Фото номера</th>
-                <th>Время въезда</th>
-                <th>Время выезда</th>
-                <th>Сумма</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in entries %}
-            <tr>
-                <td>{{ entry[0] }}</td>
-                <td>{{ entry[1] }}</td>
-                <td><img src="{{ url_for('serve_plate_image', filename=entry[3]|replace('plates/', '')) }}" width="100"></td>
-                <td><img src="{{ url_for('serve_plate_image', filename=entry[4]|replace('plates/', '')) }}" width="100"></td>
-                <td>{{ entry[2] }}</td>
-                <td>{{ entry[5] or '---' }}</td>
-                <td>
-                    {% if entry[5] %}
-                        {{ entry[6] }} сум |
-                        <a href="{{ url_for('generate_receipt', entry_id=entry[0]) }}">PDF</a>
-                    {% else %}
-                        ---
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Номер</th>
+          <th>Фото (въезд)</th>
+          <th>Фото номера</th>
+          <th>Время въезда</th>
+          <th>Время выезда</th>
+          <th>Сумма</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in entries %}
+        <tr>
+          <td>{{ entry[0] }}</td>
+          <td>{{ entry[1] }}</td>
+          <td>
+            <img
+              src="{{ url_for('serve_plate_image', filename=entry[3]|replace('plates/', '')) }}"
+              width="100"
+            />
+          </td>
+          <td>
+            <img
+              src="{{ url_for('serve_plate_image', filename=entry[4]|replace('plates/', '')) }}"
+              width="100"
+            />
+          </td>
+          <td>{{ entry[2] }}</td>
+          <td>{{ entry[5] or '---' }}</td>
+          <td>
+            {% if entry[5] %} {{ entry[6] }} сум
+            <a
+              href="{{ url_for('generate_receipt', entry_id=entry[0]) }}"
+              class="pdf-link"
+              >PDF</a
+            >
+            {% else %} --- {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
-    
-</body>
+  </body>
 </html>
