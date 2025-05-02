@@ -25,7 +25,7 @@ frame_holder = {"frame": None}
 recognized_plates = {"boxes": []}
 
 # MJPEG видеопоток
-camera_stream = cv2.VideoCapture(1)
+camera_stream = cv2.VideoCapture('rtsp://172.16.15.28:8080/h264_ulaw.sdp')
 
 def gen_frames():
     while True:
